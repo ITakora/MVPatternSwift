@@ -10,11 +10,11 @@ import SwiftUI
 @main
 struct MVArchitechtureApp: App {
     
-    @StateObject private var storeModel = StoreModel(webservice: WebService())
+    
     
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(storeModel)
+            ContentView().environmentObject(Store())
         }
     }
 }

@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @EnvironmentObject private var storeModel: StoreModel
+    @EnvironmentObject private var storeModel: Store
     
     private func fetchData () async {
         do {
-            try await storeModel.populateProduct()
+            try await storeModel.fetchData()
         }catch {
             print(error)  
         }
@@ -24,11 +24,11 @@ struct ContentView: View {
             Text("Hello World")
             
             List(storeModel.products) { product in
-                VStack(alignment: .center){
-                    Text(product.title)
-                    Text("\(product.price)")
+                VStack(){
+                    Text(product.title).frame(maxWidth: .infinity).multilineTextAlignment(.center).padding(8)
+                    Text("\(product.price)").frame(maxWidth: .infinity)
                     
-                }.frame(maxWidth: .infinity, idealHeight: 200)
+                }.frame(height: 200)
             }.listRowSpacing(10)
                 
             
@@ -40,5 +40,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView().environmentObject(StoreModel(webservice: WebService()))
+    ContentView().environmentObject(Store())
 }
